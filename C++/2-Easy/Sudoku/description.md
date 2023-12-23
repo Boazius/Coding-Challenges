@@ -1,28 +1,52 @@
-Here's an optimized solution to check if the given grid of numbers represents a correct solution to Sudoku:
+**Problem from CodeSignal.com**
 
-```cpp
-bool isValidSudoku(vector<vector<int>>& board) {
-    vector<vector<bool>> rowSeen(9, vector<bool>(9, false));
-    vector<vector<bool>> colSeen(9, vector<bool>(9, false));
-    vector<vector<bool>> boxSeen(9, vector<bool>(9, false));
-    
-    for (int i = 0; i < 9; ++i) {
-        for (int j = 0; j < 9; ++j) {
-            if (board[i][j] == 0) continue;
-            
-            int num = board[i][j] - 1;
-            int boxIdx = (i / 3) * 3 + j / 3;
-            
-            if (rowSeen[i][num] || colSeen[j][num] || boxSeen[boxIdx][num]) {
-                return false;
-            }
-            
-            rowSeen[i][num] = colSeen[j][num] = boxSeen[boxIdx][num] = true;
-        }
-    }
-    
-    return true;
-}
+**Sudoku Validation**
+
+Sudoku is a number-placement puzzle. The objective is to fill a 9 × 9 grid with digits so that each column, each row, and each of the nine 3 × 3 sub-grids that compose the grid contains all of the digits from 1 to 9.
+
+**Algorithm**
+
+This algorithm should check if the given grid of numbers represents a correct solution to Sudoku.
+
+**Example**
+
+For the first example:
+
+```markdown
+grid = [[1, 3, 2, 5, 4, 6, 9, 8, 7],
+        [4, 6, 5, 8, 7, 9, 3, 2, 1],
+        [7, 9, 8, 2, 1, 3, 6, 5, 4],
+        [9, 2, 1, 4, 3, 5, 8, 7, 6],
+        [3, 5, 4, 7, 6, 8, 2, 1, 9],
+        [6, 8, 7, 1, 9, 2, 5, 4, 3],
+        [5, 7, 6, 9, 8, 1, 4, 3, 2],
+        [2, 4, 3, 6, 5, 7, 1, 9, 8],
+        [8, 1, 9, 3, 2, 4, 7, 6, 5]]
 ```
 
-This code uses three 2D boolean arrays to keep track of the numbers seen in rows, columns, and 3x3 boxes. It iterates through the Sudoku board and checks if any number has already been seen in the corresponding row, column, or box. If it finds a duplicate, it returns false. Otherwise, it continues checking the rest of the board. If no duplicates are found, it returns true, indicating that the given grid represents a correct solution to Sudoku.
+The output should be `solution(grid) = true;`
+
+For the second example:
+
+```markdown
+grid = [[8, 3, 6, 5, 3, 6, 7, 2, 9],
+        [4, 2, 5, 8, 7, 9, 3, 8, 1],
+        [7, 9, 1, 2, 1, 4, 6, 5, 4],
+        [9, 2, 1, 4, 3, 5, 8, 7, 6],
+        [3, 5, 4, 7, 6, 8, 2, 1, 9],
+        [6, 8, 7, 1, 9, 2, 5, 4, 3],
+        [5, 7, 6, 9, 8, 1, 4, 3, 2],
+        [2, 4, 3, 6, 5, 7, 1, 9, 8],
+        [8, 1, 9, 3, 2, 4, 7, 6, 5]]
+```
+
+The output should be `solution(grid) = false.`
+
+The output should be false: each of the nine 3 × 3 sub-grids should contain all of the digits from 1 to 9. These examples are represented in the image below.
+
+**Input/Output**
+
+- Execution time limit: 0.5 seconds (cpp)
+- Memory limit: 1 GB
+- Input: 2D array `grid` representing a 9 × 9 grid already filled with numbers from 1 to 9.
+- Output: Boolean, true if the given grid represents a correct solution to Sudoku, false otherwise.
